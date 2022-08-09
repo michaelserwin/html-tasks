@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        background-color: rgb(152, 212, 192);
+        height: 800px;
+        width: 800px;
+        padding: 10px;
+      }
+
+      .h {
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(71, 71, 78);
+      }
+
+      #head {
+        background-color: rgb(117, 153, 80);
+        color: white;
+      }
+
+      #left {
+        margin-left: 150px;
+      }
+
+      #right {
+        margin-left: 350px;
+      }
+
+      #middle-content {
+        height: 100px;
+        width: 800px;
+      }
+
+      #image {
+        height: 100px;
+        width: 180px;
+      }
+
+      #right-content {
+        height: 100px;
+        width: 600px;
+        float: right;
+      }
+      #image1 {
+        height: 300px;
+        width: 400px;
+        float: right;
+        margin-left: 250px;
+        margin-right: 50px;
+        margin-bottom: 20px;
+      }
+      #footer {
+        height: 50px;
+        width: 800px;
+        background-color: rgb(30, 55, 6);
+        color: white;
+        font-size: x-large;
+      }
+      .white {
+        color: white;
+      }
+      #v1 {
+        width: 400px;
+        height: 250px;
+        margin-right: 10px;
+        float: left;
+      }
+      #v2 {
+        width: 370px;
+        height: 200px;
+        margin-right: 10px;
+        float: right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="box">
+      <p class="h">Shero's Favorite Animals</p>
+      <p id="head">
+        <span id="left"> Home</span> <span id="right"> Fun Facts</span>
+      </p>
+      <div id="middle-content">
+        <img src="./moose.jpg" alt="Moose img" id="image" />
+
+        <div id="right-content">
+          <p class="white">
+            My name is Shero, and my favourite animal is the moose.They can be
+            up to 6.5 feet tall and weigh 1200poundz.Surprisingly, they're
+            really good at swimming!
+          </p>
+          <p class="white">
+            If you want to learn more about the moose .check out
+            <u style="color: blue">its Wikipedia Page </u>
+          </p>
+          <div id="image1">
+            <img
+              src="./moose .fight.jpg"
+              height="280"
+              width="400"
+              alt="moose"
+            />
+          </div>
+        </div>
+      </div>
+      <p class="h">Moose are awesome because ...</p>
+      <ol class="white">
+        <li>They can swim really well</li>
+        <li>They can make really funny noises</li>
+        <li>They can close their nostrills</li>
+      </ol>
+      <p class="h">If I Were a moose, I Would...</p>
+      <ul style="list-style-type: disc" class="white">
+        <li>Eats lots of lettuce</li>
+        <li>Carry little animals on my antlers</li>
+        <li>Swim to Alaska</li>
+      </ul>
+      <p class="h">Moose Video</p>
+      <p id="footer">Moose Video for kids-Big Moose in their Habitat</p>
+      <div id="v1">
+        <iframe
+          width="400"
+          height="220"
+          src="https://www.youtube.com/embed/M26ug8MGYlY"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div id="v2">
+        <iframe
+          width="350"
+          height="220"
+          src="https://www.youtube.com/embed/jz7lH_hF8f0"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </body>
+</html>
