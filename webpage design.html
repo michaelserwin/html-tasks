@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #box {
+        height: 800px;
+        width: 1200px;
+      }
+      #favorites {
+        height:800px;
+        width: 300px;
+        border: 2px solid white;
+        float: left;
+      }
+      #veggies {
+        height:800px;
+        width: 800px;
+        float: left;
+        border: 2px solid white;
+        margin-left: 10px;
+
+      }
+      #head{
+        height:90px;
+        width:800px;
+        background-color: rgb(241, 174, 98);
+        float:right;
+        margin-top: 5px;
+      }
+      table{
+        height:100px;
+        width:780px;
+        float: right;
+        margin-right: 10px;
+      }
+      table,tr,td{
+
+        border:1px solid black;
+        border-collapse: collapse;
+        margin-left: 10px;
+
+      }
+      tr:nth-child(even){
+        background-color: rgb(204, 195, 195);
+        
+      }
+      #image{
+        height:250px;
+        width:100%;
+      }
+
+      .img{
+        height:200px;
+        width:250px;
+        float: right;
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin-top:30px;
+        margin-right:10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div id="favorites">
+        <h2>Some favorites</h2>
+        <form>
+          <select
+            id="veg"
+            name="vegetable"
+            multiple
+            style="border: none; scroll-snap-type: none;color: blue;"
+          >
+            <option value="value">Celery Root</option>
+            <option value="value">Spaghetti Squash</option>
+            <option value="value">Killer Mushroom</option>
+          </select>
+          <br />
+          <br />
+          <input type="text" id="search" name="search" />
+          <br />
+          <br />
+          <button type="search" id="search" name="search" style="background-color: blue;color:white">
+            Search Recepies
+          </button>
+        </form>
+      </div>
+      <div id="veggies">
+        <div id="head">
+          <p style="color: red;text-align: center;">
+            Uh oh! Have you had your daily dose of veggies today??
+          </p>
+        </div>
+        <h1>Wild & Wacky vegetable</h1>
+        <p><span>
+          The beet is the mose intense of vegetables.The radish, admittedly, is
+          more feverish, but the fire of the radish<br/>is a cold fire, the
+          fire of dicontent not of passion.Tomatoes arelusty enough, yet there
+          runs through<br/>tomatoes an undercurrentof frivolity.Beets are
+          deadly serious.
+        </span></p>
+        <author>Tom Robbins</author>
+        <h2>Some diseases</h2>
+        <table style="text-align: left;">
+          <tr>
+            <td><b>Veggies</b></td>
+            <td><b>Disease</b></td>
+          </tr>
+          <tr>
+            <td>Beets</td>
+            <td>Beeturia</td>
+          </tr>
+          <tr>
+            <td>Carrots</td>
+            <td>Carotenosis</td>
+          </tr>
+        </table>
+        <div id="image">
+            <div class="img">
+                <img src="./Beets.jpg" alt="beetroot" height="190" width="240">
+                <figcaption>
+                  <h4>Beets</h4>
+                  <br />Careful not to get your hands dirty
+                </figcaption>
+              </div>
+              <div class="img">
+                <img src="./carrot.jpg" alt="carrot"  height="190" width="240" >
+                <figcaption>
+                  <h4>Carrot</h4>
+                  <br />Not sticks,can motivate
+                </figcaption>
+              </div>
+              <div class="img">
+                <img src="./Asparagus.jpg" alt="Asparagus"  height="190" width="240" >
+                <figcaption>
+                  <h4>Asparagus</h4>
+                  <br />Spears,Spears,Spears
+                </figcaption>
+              </div>
+        </div> 
+      </div>
+    </div>
+  </body>
+</html>
