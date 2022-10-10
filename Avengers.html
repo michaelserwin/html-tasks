@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avengers</title>
+    <style>
+        body{
+            background-image: url(./images/White\ Wall-\ img\ 1.jpg);
+        }
+        .container{
+            width: 700px;
+            height: auto;
+            border-radius: 50px;
+            background-color: black;
+            bottom: black 5px;
+            margin: 15px auto;
+            position: relative;
+        }
+        .circle{
+            width: 600px;
+            height: 600px;
+            border: solid 50px #ffffff;
+            border-radius: 50%;
+            top: 70px;
+            position: absolute;
+            z-index: 10;
+        }
+        .a-1{
+            width:100px;
+            height:770px;
+            background: #ffffff;
+            transform: skewX(-25deg);
+            position: relative;
+            left: 200px;
+            z-index:20px;
+        }
+        .a-2{
+            width: 100px;
+            height: 381px;
+            background: #ffffff;
+            position: absolute;
+            left: 400px;
+            top: 0px;
+            z-index:30;
+        }
+        .a-3{
+            width:190px;
+            height: 100px;
+            background: #ffffff;
+            position: absolute;
+            left: 210px;
+            top:450px;
+            z-index:40
+        }
+        .arrow-right{
+            width: 0;
+            height: 0;
+            border-top:90px solid transparent;
+            border-bottom: 90px solid transparent;
+            border-left: 120px solid #ffffff;
+            position:absolute;
+            left:400px;
+            top:410px;
+        }
+        .arrow-down{
+            width: 0;
+            height: 0;
+            border-bottom: 80px solid transparent;
+            border-right: 100px solid #ffffff;
+            left:400px;
+            top:380px;
+            position:absolute;
+        }
+        .arrow-left{
+            width: 0;
+            height: 0;
+            border-top: 80px solid transparent;
+            border-right: 100px solid #ffffff;
+            left: 400px;
+            top: 540px;
+            position: absolute;
+            z-index:70;
+        }
+        .black-bar-1,.black-bar-2{
+            width:25px;
+            height: 80px;
+            background: #000000;
+            transform: skewX(-25deg);
+            position: absolute;
+        }
+        .black-bar-1{
+            left: 158px;
+            top: 650px;
+            z-index: 80px;
+        }
+        .black-bar-2{
+            left: 72px;
+            top: 565px;
+            z-index:90;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="circle"></div>
+    <div class="a-1"></div>
+    <div class="a-2"></div>
+    <div class="a-3"></div>
+    <div class="arrow-right"></div>
+    <div class="arrow-down"></div>
+    <div class="arrow-left"></div>
+    <div class="black-bar-1"></div>
+    <div class="black-bar-2"></div>
+    </div>
+</body>
+</html>
