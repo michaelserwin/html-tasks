@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Calculator</title>
+    <style>
+        body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #e166074d 0%, #8e28936d 100%);
+        min-height: 100vh;
+    }
+    
+    .stock-up {
+        color: #4caf50;
+    }
+    
+    .stock-down {
+        color: #f44336;
+    }
+    
+    .stock-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .stock-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    
+    .ticker-wrap {
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 10px 0;
+        position: relative;
+    }
+    
+    .ticker {
+        display: inline-flex;
+        white-space: nowrap;
+        animation: ticker 30s linear infinite;
+    }
+    
+    @keyframes ticker {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+    
+    .ticker-item {
+        padding: 0 20px;
+    }
+    </style>
+</head>
+<body>
+   
+    <div class="ticker-wrap mb-8 rounded-lg">
+        <div class="ticker" id="ticker">
+            <!-- Ticker items will be added dynamically -->
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Calculator Section -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Investment Calculator</h2>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Select Stock</label>
+                    <select id="stockSelect" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <!-- Options will be added dynamically -->
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Current Price</label>
+                    <div class="flex items-center">
+                        <span class="text-gray-500 mr-2">$</span>
+                        <input type="text" id="currentPrice" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" readonly>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Number of Shares</label>
+                    <input type="number" id="shareCount" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value="10" min="1">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Investment Period (months)</label>
+                    <input type="range" id="investmentPeriod" class="w-full" min="1" max="60" value="12">
+                    <div class="flex justify-between text-xs text-gray-500">
+                        <span>1 month</span>
+                        <span id="periodValue">12 months</span>
+                        <span>60 months</span>
+                    </div>
+                </div>
+                
+                <button id="calculateBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out">
+                    Calculate Investment
+                </button>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mt-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Investment Summary</h2>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Initial Investment:</span>
+                        <span id="initialInvestment" class="font-medium">$0.00</span>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Projected Value:</span>
+                        <span id="projectedValue" class="font-medium">$0.00</span>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Profit/Loss:</span>
+                        <span id="profitLoss" class="font-medium">$0.00</span>
+                    </div>
+                    
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Return Rate:</span>
+                        <span id="returnRate" class="font-medium">0.00%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Market Data Section -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-xl shadow-lg p-6 h-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-gray-800">Live Market Data</h2>
+                    <div class="flex items-center">
+                        <span class="pulse inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+                        <span class="text-sm text-gray-500">Simulated Live Data</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="stockCards">
+                    <!-- Stock cards will be added dynamically -->
+                </div>
+                
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-800 mb-3">Market Trends</h3>
+                    <div class="bg-gray-100 rounded-lg p-4">
+                        <canvas id="stockChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="mt-8 text-center text-blue-100 text-sm">
+        <p>This is a simulated stock market calculator for educational purposes only.</p>
+        <p class="mt-1">© 2023 Stock Market Calculator</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Sample stock data
+    const stocks = [
+        { symbol: 'AAPL', name: 'Apple Inc.', price: 182.63, change: 1.25, changePercent: 0.69 },
+        { symbol: 'MSFT', name: 'Microsoft Corp.', price: 337.42, change: 2.18, changePercent: 0.65 },
+        { symbol: 'GOOGL', name: 'Alphabet Inc.', price: 131.86, change: -0.57, changePercent: -0.43 },
+        { symbol: 'AMZN', name: 'Amazon.com Inc.', price: 127.74, change: 0.83, changePercent: 0.65 },
+        { symbol: 'TSLA', name: 'Tesla Inc.', price: 238.83, change: -3.27, changePercent: -1.35 },
+        { symbol: 'META', name: 'Meta Platforms Inc.', price: 297.48, change: 4.23, changePercent: 1.44 },
+        { symbol: 'NFLX', name: 'Netflix Inc.', price: 424.71, change: 5.62, changePercent: 1.34 },
+        { symbol: 'NVDA', name: 'NVIDIA Corp.', price: 437.53, change: 9.87, changePercent: 2.31 }
+    ];
+    
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeStockSelect();
+        populateStockCards();
+        createTicker();
+        initializeChart();
+        
+        // Set up event listeners
+        document.getElementById('stockSelect').addEventListener('change', updateCurrentPrice);
+        document.getElementById('calculateBtn').addEventListener('click', calculateInvestment);
+        document.getElementById('investmentPeriod').addEventListener('input', updatePeriodValue);
+        
+        // Initialize with first stock
+        updateCurrentPrice();
+        
+        // Start simulated live updates
+        setInterval(updateStockPrices, 5000);
+    });
+    
+    function initializeStockSelect() {
+        const stockSelect = document.getElementById('stockSelect');
+        
+        stocks.forEach(stock => {
+            const option = document.createElement('option');
+            option.value = stock.symbol;
+            option.textContent = `${stock.name} (${stock.symbol})`;
+            stockSelect.appendChild(option);
+        });
+    }
+    
+    function updateCurrentPrice() {
+        const stockSelect = document.getElementById('stockSelect');
+        const currentPrice = document.getElementById('currentPrice');
+        const selectedStock = stocks.find(stock => stock.symbol === stockSelect.value);
+        
+        if (selectedStock) {
+            currentPrice.value = selectedStock.price.toFixed(2);
+        }
+    }
+    
+    function populateStockCards() {
+        const stockCards = document.getElementById('stockCards');
+        stockCards.innerHTML = '';
+        
+        stocks.forEach(stock => {
+            const card = document.createElement('div');
+            card.className = 'stock-card bg-gray-50 rounded-lg p-4 border border-gray-200';
+            card.id = `stock-${stock.symbol}`;
+            
+            const changeClass = stock.change >= 0 ? 'stock-up' : 'stock-down';
+            const changeIcon = stock.change >= 0 ? '▲' : '▼';
+            
+            card.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-gray-800">${stock.symbol}</h3>
+                        <p class="text-sm text-gray-600">${stock.name}</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-lg font-bold">$${stock.price.toFixed(2)}</div>
+                        <div class="text-sm ${changeClass}">
+                            ${changeIcon} ${Math.abs(stock.change).toFixed(2)} (${stock.changePercent.toFixed(2)}%)
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            stockCards.appendChild(card);
+        });
+    }
+    
+    function createTicker() {
+        const ticker = document.getElementById('ticker');
+        ticker.innerHTML = '';
+        
+        stocks.forEach(stock => {
+            const changeClass = stock.change >= 0 ? 'stock-up' : 'stock-down';
+            const changeIcon = stock.change >= 0 ? '▲' : '▼';
+            
+            const tickerItem = document.createElement('div');
+            tickerItem.className = 'ticker-item';
+            tickerItem.innerHTML = `
+                <span class="font-medium text-white">${stock.symbol}</span>
+                <span class="text-white">$${stock.price.toFixed(2)}</span>
+                <span class="${changeClass}">${changeIcon} ${stock.changePercent.toFixed(2)}%</span>
+            `;
+            
+            ticker.appendChild(tickerItem);
+        });
+    }
+    
+    function updatePeriodValue() {
+        const periodValue = document.getElementById('periodValue');
+        const months = document.getElementById('investmentPeriod').value;
+        periodValue.textContent = `${months} month${months > 1 ? 's' : ''}`;
+    }
+    
+    function calculateInvestment() {
+        const stockSelect = document.getElementById('stockSelect');
+        const shareCount = parseInt(document.getElementById('shareCount').value);
+        const months = parseInt(document.getElementById('investmentPeriod').value);
+        
+        const selectedStock = stocks.find(stock => stock.symbol === stockSelect.value);
+        
+        if (selectedStock && !isNaN(shareCount) && shareCount > 0) {
+            const initialInvestment = selectedStock.price * shareCount;
+            
+            // Simulate future value with random growth rate between 3-15% annually
+            const annualGrowthRate = 0.03 + Math.random() * 0.12;
+            const monthlyGrowthRate = Math.pow(1 + annualGrowthRate, 1/12) - 1;
+            const futureValue = initialInvestment * Math.pow(1 + monthlyGrowthRate, months);
+            
+            const profit = futureValue - initialInvestment;
+            const returnRate = (profit / initialInvestment) * 100;
+            
+            // Update the results
+            document.getElementById('initialInvestment').textContent = `$${initialInvestment.toFixed(2)}`;
+            document.getElementById('projectedValue').textContent = `$${futureValue.toFixed(2)}`;
+            document.getElementById('profitLoss').textContent = `$${profit.toFixed(2)}`;
+            document.getElementById('returnRate').textContent = `${returnRate.toFixed(2)}%`;
+            
+            // Highlight profit/loss with color
+            const profitLossElement = document.getElementById('profitLoss');
+            profitLossElement.className = profit >= 0 ? 'font-medium stock-up' : 'font-medium stock-down';
+            
+            // Update chart with projection data
+            updateChart(selectedStock.symbol, months, initialInvestment, futureValue);
+        }
+    }
+    
+    let stockChart;
+    
+    function initializeChart() {
+        const ctx = document.getElementById('stockChart').getContext('2d');
+        
+        stockChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Projected Value',
+                    data: [],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value;
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.parsed.y.toFixed(2);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    function updateChart(symbol, months, initialValue, finalValue) {
+        const labels = [];
+        const data = [];
+        
+        // Generate projection data points
+        for (let i = 0; i <= months; i++) {
+            labels.push(`Month ${i}`);
+            
+            // Calculate value with slight randomness for more realistic projection
+            const progress = i / months;
+            const randomFactor = 1 + (Math.random() * 0.04 - 0.02); // ±2% random variation
+            
+            if (i === 0) {
+                data.push(initialValue);
+            } else if (i === months) {
+                data.push(finalValue);
+            } else {
+                // Interpolate with slight curve and randomness
+                const value = initialValue + (finalValue - initialValue) * 
+                             (Math.pow(progress, 1.1)) * randomFactor;
+                data.push(value);
+            }
+        }
+        
+        stockChart.data.labels = labels;
+        stockChart.data.datasets[0].data = data;
+        stockChart.data.datasets[0].label = `${symbol} Projected Value`;
+        stockChart.update();
+    }
+    
+    function updateStockPrices() {
+        // Simulate price changes
+        stocks.forEach(stock => {
+            // Random price change between -2% and +2%
+            const changePercent = (Math.random() * 4 - 2) / 100;
+            const priceChange = stock.price * changePercent;
+            
+            stock.price += priceChange;
+            stock.change = priceChange;
+            stock.changePercent = changePercent * 100;
+            
+            // Update UI for this stock
+            updateStockCard(stock);
+        });
+        
+        // Update ticker and current price if needed
+        createTicker();
+        updateCurrentPrice();
+    }
+    
+    function updateStockCard(stock) {
+        const card = document.getElementById(`stock-${stock.symbol}`);
+        if (!card) return;
+        
+        const changeClass = stock.change >= 0 ? 'stock-up' : 'stock-down';
+        const changeIcon = stock.change >= 0 ? '▲' : '▼';
+        
+        card.innerHTML = `
+            <div class="flex justify-between items-start">
+                <div>
+                    <h3 class="font-bold text-gray-800">${stock.symbol}</h3>
+                    <p class="text-sm text-gray-600">${stock.name}</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-lg font-bold">$${stock.price.toFixed(2)}</div>
+                    <div class="text-sm ${changeClass}">
+                        ${changeIcon} ${Math.abs(stock.change).toFixed(2)} (${stock.changePercent.toFixed(2)}%)
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add a brief highlight effect
+        card.classList.add('bg-blue-50');
+        setTimeout(() => {
+            card.classList.remove('bg-blue-50');
+        }, 1000);
+    }
+</script>
+</div> 
+</body>
+</html>
